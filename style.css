@@ -16,17 +16,10 @@ body {
 }
    
 #mapa {
-    height: 100vh;
+    height: 95vh;
     max-width: 100%;
     margin: 0 auto;
 }
-
-.loading {
-    margin-top: 10em;
-    text-align: center;
-    color: gray;
-}
-
 
 
 table {    
@@ -36,7 +29,7 @@ table {
     font-weight: 300;
     color: #333;
     background-color: #fff;
-    margin: 1em;
+    margin: 40px 1em;
     text-align: center;
  
 }

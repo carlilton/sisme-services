@@ -8,11 +8,12 @@
     Highcharts.mapChart('mapa', {
         chart: {
             map: topology,
-            spacingBottom: 20
+            spacingBottom: 20,
+            spacingTop: 40,
         },
 
         title: {
-            text: 'SISME services availability by country'
+            text: 'SISME - Disponibilidade de Serviços por país.'
         },
 
         accessibility: {
@@ -89,7 +90,7 @@
             },
         },
         {
-            name: 'Partial',
+            name: 'Parcial',
             color: '#f6993f',
             data: ['BR', 'CL'].map(code => ({ code })),
             borderColor: 'white',
