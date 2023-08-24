@@ -4,53 +4,105 @@
         'https://code.highcharts.com/mapdata/custom/south-america.topo.json'
     ).then(response => response.json());
 
-    // Prepare demo data. The data is joined to map using value of 'hc-key'
-    // property by default. See API docs for 'joinBy' for more info on linking
-    // data and map.
-    const data = [
-        ['br', 10], ['ec', 11], ['ve', 12], ['cl', 13], ['ar', 14],
-        ['uy', 16], ['py', 17],['gy', 20]
-    ];
-
-    // Create the chart
-    Highcharts.mapChart('container', {
+    // Instantiate the map
+    Highcharts.mapChart('mapa', {
         chart: {
             map: topology,
-            backgroundColor: '#f8fafc'
+            spacingBottom: 20
         },
 
         title: {
-            text: 'Disponibilidade de serviços do SISME por país'
+            text: 'SISME services availability by country'
         },
 
-        subtitle: {
-            text: 'Source map: <a href="http://code.highcharts.com/mapdata/custom/south-america.topo.json">South America</a>'
-        },
-
-        mapNavigation: {
-            enabled: true,
-            buttonOptions: {
-                verticalAlign: 'bottom'
+        accessibility: {
+            series: {
+                descriptionFormat: 'Timezone {series.name} with {series.points.length} countries.'
+            },
+            point: {
+                valueDescriptionFormat: '{point.name}.'
             }
         },
 
-        colorAxis: {
-            min: 0
+        legend: {
+            enabled: true
         },
 
-        series: [{
-            data: data,
-            name: 'Random data',
+        plotOptions: {
+            map: {
+                allAreas: false,
+                joinBy: ['iso-a2', 'code'],
+                borderColor: '#fff',
+                dataLabels: {
+                    enabled: true,
+                    color: '#FFFFFF',
+                    style: {
+                        fontWeight: 'bold'
+                    },
+                    // Only show dataLabels for areas with high label rank
+                    format: '{#if (lt point.properties.labelrank 5)}' +
+                        '{point.properties.iso-a2}' +
+                        '{/if}'
+                },
+                tooltip: {
+                    headerFormat: '',
+                    pointFormat: '{point.name}: <b>{series.name}</b>'
+                }
+            }
+        },
+
+        series: [
+            {
+                name: 'South America',
+                color: '#E0E0E0',
+                data: ['BR','EC','CL','AR','PE','BO','SR','CO',
+                'UY','PY','GY', 'VE'].map(code => ({ code })),
+                borderColor: 'white',
+            borderWidth: 0.2,
             states: {
                 hover: {
-                    color: '#BADA55'
+                    borderWidth: 1
                 }
             },
-            dataLabels: {
-                enabled: true,
-                format: '{point.name}'
-            }
-        }]
+            },
+            {
+            name: 'On line',
+            color: '#38c172',
+            data: ['AR', 'UY'].map(code => ({ code })),
+            borderColor: 'white',
+            borderWidth: 0.2,
+            states: {
+                hover: {
+                    borderWidth: 1
+                }
+            },
+        }, {
+            name: 'Off',
+            color: '#bd2130',
+            data: ['PY'].map(code => ({ code })),
+            borderColor: 'white',
+            borderWidth: 0.2,
+            states: {
+                hover: {
+                    borderWidth: 1
+                }
+            },
+        },
+        {
+            name: 'Partial',
+            color: '#f6993f',
+            data: ['BR', 'CL'].map(code => ({ code })),
+            borderColor: 'white',
+            borderWidth: 0.2,
+            states: {
+                hover: {
+                    borderWidth: 1
+                }
+            },
+
+          
+        }
+    ]
     });
 
 })();
