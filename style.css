@@ -29,7 +29,7 @@ table {
     font-weight: 300;
     color: #333;
     background-color: #fff;
-    margin: 40px 1em;
+    margin: 40px 1em 20px 1em;
     text-align: center;
  
 }
@@ -76,4 +76,10 @@ table img {
     'wght' 400,
     'GRAD' 0,
     'opsz' 48
+  }
+
+  .ultima_atualizacao {
+    color: grey;
+    font-size: 12px;
+    margin-left: 15px;
   }
